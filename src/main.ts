@@ -3,6 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { envConfigFactory } from '@shared/infra/env';
 import { dataSource } from '@shared/infra/database';
+import { globalExeptionFiltersFactory } from '@shared/infra/exception-filters';
 
 const envConfig = envConfigFactory();
 async function bootstrap() {
@@ -14,6 +15,7 @@ async function bootstrap() {
     .catch((error) => console.log(error));
 
   const app = await NestFactory.create(AppModule);
+  globalExeptionFiltersFactory(app);
 
   await app.listen(envConfig.getAppPort() || 3001);
 }
