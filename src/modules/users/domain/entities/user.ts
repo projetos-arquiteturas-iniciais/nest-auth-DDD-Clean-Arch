@@ -1,5 +1,14 @@
 import { randomUUID } from 'node:crypto';
 import { Email } from '@shared/domain/velue-objects/email';
+import {
+  EmailValidation,
+  MaxLengthFieldValidation,
+  MinLengthFieldValidation,
+  StrongPasswordValidation,
+  UUIDValidation,
+  Validation,
+  ValidationComposite,
+} from '@shared/domain/validations';
 
 export type UserProps = {
   id: string;
@@ -19,6 +28,7 @@ export class User {
     this._name = props.name;
     this._email = new Email(props.email);
     this._password = props.password;
+    this.validation();
   }
 
   get id(): string {
@@ -45,4 +55,27 @@ export class User {
       password: this._password,
     };
   }
+
+  private validation(): void {
+    const validator = createValidator();
+    const data = this.toJSON();
+    validator.validate(data);
+  }
+}
+
+function createValidator(): Validation<UserProps> {
+  const validations: Validation<UserProps>[] = [
+    new UUIDValidation('id'),
+
+    new MinLengthFieldValidation('name', 2),
+    new MaxLengthFieldValidation('name', 100),
+
+    new EmailValidation('email'),
+    new MinLengthFieldValidation('email', 8),
+    new MaxLengthFieldValidation('email', 100),
+
+    new StrongPasswordValidation('password'),
+  ];
+
+  return new ValidationComposite(validations);
 }
