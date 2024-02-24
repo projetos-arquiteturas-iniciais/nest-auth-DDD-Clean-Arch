@@ -13,10 +13,22 @@ export class EnvConfig implements IEnvConfig {
   }
 
   getDbHost(): string {
-    return process?.env?.DATABASE_HOST?.toString();
+    return process.env.DATABASE_HOST.toString();
   }
 
   getDBPort(): number {
-    return Number(process?.env?.DATABASE_PORT);
+    return Number(process.env.DATABASE_PORT);
+  }
+
+  getDbUserName(): string {
+    return process.env.DATABASE_USER_NAME.toString();
+  }
+
+  getDbPassword(): string {
+    return process.env.DATABASE_PASSWORD.toString();
+  }
+
+  getDbName(): string {
+    return process.env.DATABASE_NAME.toString();
   }
 }
