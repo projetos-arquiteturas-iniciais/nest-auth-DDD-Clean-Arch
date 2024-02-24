@@ -1,0 +1,29 @@
+------------------------------ Geral --------------------------------------
+
+Create migration:
+ npm run migration:create -name=<name>
+
+
+
+------------------------------ In Local --------------------------------------
+
+Gerar migration:
+npm run migration:generate:local --name=<name>
+
+Rodar migration:
+npm run migration:run:local
+
+Reverter migration:
+npm run migration:revert:local
+
+
+------------------------------ In Prod --------------------------------------
+
+Gerar migration:
+npm run migration:generate --name=<name>
+
+Rodar migration:
+npm run migration:run
+
+Reverter migration:
+npm run migration:revert
