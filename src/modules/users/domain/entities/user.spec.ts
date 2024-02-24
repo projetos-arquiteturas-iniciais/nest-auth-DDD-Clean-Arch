@@ -71,34 +71,6 @@ describe('User unit tests', () => {
       ).toThrow(new BadRequestError('name must be a string'));
     });
 
-    it('shoud validate email correctly when create an user', () => {
-      expect(
-        () =>
-          new User({
-            ...data,
-            email: 'N@de.co',
-          }),
-      ).toThrow(
-        new BadRequestError('email must contain at least 8 characters'),
-      );
-      expect(
-        () =>
-          new User({
-            ...data,
-            email: 'ddsd@dsds',
-          }),
-      ).toThrow(new BadRequestError('email in invalid format'));
-      expect(
-        () =>
-          new User({
-            ...data,
-            email: 'itistoobig'.repeat(5) + '@' + 'teste'.repeat(10) + '.com',
-          }),
-      ).toThrow(
-        new BadRequestError(`email must contain a maximum of 100 characters`),
-      );
-    });
-
     it('shoud validate password correctly when create an user', () => {
       expect(
         () =>

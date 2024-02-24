@@ -1,7 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import { Email } from '@shared/domain/velue-objects/email';
 import {
-  EmailValidation,
   MaxLengthFieldValidation,
   MinLengthFieldValidation,
   StrongPasswordValidation,
@@ -69,10 +68,6 @@ function createValidator(): Validation<UserProps> {
 
     new MinLengthFieldValidation('name', 2),
     new MaxLengthFieldValidation('name', 100),
-
-    new EmailValidation('email'),
-    new MinLengthFieldValidation('email', 8),
-    new MaxLengthFieldValidation('email', 100),
 
     new StrongPasswordValidation('password'),
   ];

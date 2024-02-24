@@ -2,7 +2,7 @@ import { BadRequestError } from '../errors';
 import { Validator } from '../validations';
 
 export class Email {
-  constructor(private email: string) {
+  constructor(private readonly email: string) {
     this.email = email;
     this.validation();
   }
@@ -16,6 +16,16 @@ export class Email {
 
     if (!isValid) {
       throw new BadRequestError('email in invalid format');
+    }
+
+    if (this.email.length < 8) {
+      throw new BadRequestError('email must contain at least 8 characters');
+    }
+
+    if (this.email.length > 100) {
+      throw new BadRequestError(
+        'email must contain a maximum of 100 characters',
+      );
     }
   }
 }
