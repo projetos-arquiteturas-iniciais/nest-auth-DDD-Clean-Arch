@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import { Email } from '@users/domain/velue-objects/email';
+import { Email } from '@shared/velue-objects/email';
 
 export type UserProps = {
   id: string;
