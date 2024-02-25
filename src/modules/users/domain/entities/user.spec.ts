@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import { User } from '@users/domain/entities';
+import { User, UserFactory } from '@users/domain/entities';
 import { BadRequestError } from '@shared/domain/errors';
 
 describe('User unit tests', () => {
@@ -100,6 +100,23 @@ describe('User unit tests', () => {
             password: 'Ts@13',
           }),
       ).toThrow(new BadRequestError(`weak password`));
+    });
+  });
+
+  describe('UserFactory', () => {
+    it('shoud create an user with factory', () => {
+      const user = UserFactory.create(data);
+
+      expect(user.id).toStrictEqual(id);
+      expect(user.name).toStrictEqual('Name');
+      expect(user.email).toStrictEqual('email@example.com');
+      expect(user.password).toStrictEqual('Test@123');
+      expect(user.toJSON()).toStrictEqual({
+        id,
+        name: 'Name',
+        email: 'email@example.com',
+        password: 'Test@123',
+      });
     });
   });
 });

@@ -74,3 +74,9 @@ function createValidator(): Validation<UserProps> {
 
   return new ValidationComposite(validations);
 }
+
+export class UserFactory {
+  public static create(props: UserProps): User {
+    return new User(props);
+  }
+}
