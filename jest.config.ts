@@ -21,6 +21,7 @@ export default {
     '.interface.ts',
     '.module.ts',
     '.mock.ts',
+    '.dto.ts',
     '.factory.ts',
     'main.ts',
     'index.ts',
