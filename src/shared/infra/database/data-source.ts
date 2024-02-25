@@ -1,6 +1,6 @@
+import { IEnvConfig } from './../../domain/env';
 import { DataSource, DataSourceOptions } from 'typeorm';
-import { envConfigFactory } from '@shared/infra/env';
-import { IEnvConfig } from '@shared/domain/env';
+import { envConfigFactory } from '../env';
 
 const envConfig: IEnvConfig = envConfigFactory();
 export const dataSourceOptions: DataSourceOptions = {
@@ -11,7 +11,7 @@ export const dataSourceOptions: DataSourceOptions = {
   password: envConfig.getDbPassword(),
   database: envConfig.getDbName(),
   entities: ['dist/**/*.entity{.ts,.js}'],
-  migrations: ['dist/modules/shared/infra/database/migrations/*{.ts,.js}'],
+  migrations: ['dist/src/shared/infra/database/migrations/*{.ts,.js}'],
   synchronize: false,
 };
 
