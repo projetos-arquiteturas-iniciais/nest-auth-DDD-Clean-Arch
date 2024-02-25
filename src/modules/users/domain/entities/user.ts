@@ -10,7 +10,7 @@ import {
 } from '@shared/domain/validations';
 
 export type UserProps = {
-  id: string;
+  id?: string;
   name: string;
   email: string;
   password: string;
