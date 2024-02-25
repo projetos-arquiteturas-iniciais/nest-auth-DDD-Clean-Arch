@@ -3,7 +3,7 @@ import { UserRepository } from './user.repository';
 import { IUserRepository } from '@users/domain/repositories';
 import { Repository } from 'typeorm';
 import { UserEntity } from '../entities';
-import { User } from '@users/domain/entities';
+import { User, UserFactory } from '@users/domain/entities';
 import { randomUUID } from 'node:crypto';
 import { Email } from '@shared/domain/velue-objects';
 
@@ -17,6 +17,7 @@ describe('UserRepository integration tests', () => {
     email: 'email@example.com',
     password: 'Test@123',
   };
+  const input = UserFactory.create(data);
 
   beforeAll(async () => {
     try {
@@ -32,13 +33,14 @@ describe('UserRepository integration tests', () => {
     await userRepo.clear();
   });
 
-  it(`the sut and mockDataSource should be defined`, () => {
+  it(`the sut and userRepo should be defined`, () => {
     expect(sut).toBeDefined();
+    expect(userRepo).toBeDefined();
   });
 
   describe('create', () => {
     it(`should create an user`, async () => {
-      const result = await sut.create(data);
+      const result = await sut.create(input);
 
       expect(result).toBeInstanceOf(User);
       expect(result.id).toStrictEqual(id);
@@ -48,16 +50,16 @@ describe('UserRepository integration tests', () => {
     });
   });
 
-  describe('create', () => {
+  describe('emailExists', () => {
     it(`should return true becuse user with given email exists`, async () => {
-      const user = await sut.create(data);
+      const user = await sut.create(input);
       const email = new Email(user.email);
       const result = await sut.emailExists(email);
 
       expect(result).toBeTruthy();
     });
 
-    it(`should return true becuse user with given email do not exists`, async () => {
+    it(`should return false becuse user with given email do not exists`, async () => {
       const email = new Email(data.email);
       const result = await sut.emailExists(email);
 

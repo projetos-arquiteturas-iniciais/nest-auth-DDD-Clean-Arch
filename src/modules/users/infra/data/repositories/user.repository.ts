@@ -1,5 +1,5 @@
 import { UserEntity } from '@users/infra/data/entities/user.entity';
-import { User, UserFactory, UserProps } from '@users/domain/entities';
+import { User, UserFactory } from '@users/domain/entities';
 import { IUserRepository } from '@users/domain/repositories';
 import { DataSource, Repository } from 'typeorm';
 import { Email } from '@shared/domain/velue-objects';
@@ -20,8 +20,8 @@ export class UserRepository implements IUserRepository {
     return this.instance;
   }
 
-  public async create(data: UserProps): Promise<User> {
-    const createdEntity = this.userRepo.create(data);
+  public async create(data: User): Promise<User> {
+    const createdEntity = this.userRepo.create(data.toJSON());
     const savedEntity = await this.userRepo.save(createdEntity);
 
     return UserFactory.create(savedEntity);
