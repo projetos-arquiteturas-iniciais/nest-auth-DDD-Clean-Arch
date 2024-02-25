@@ -11,7 +11,7 @@ describe('User unit tests', () => {
     password: 'Test@123',
   };
 
-  it('shoud create an user', () => {
+  it('should create an user', () => {
     let user = new User(data);
 
     expect(user.id).toStrictEqual(id);
@@ -36,7 +36,7 @@ describe('User unit tests', () => {
   });
 
   describe('validation()', () => {
-    it('shoud validate id correctly when create an user', () => {
+    it('should validate id correctly when create an user', () => {
       expect(
         () =>
           new User({
@@ -46,7 +46,7 @@ describe('User unit tests', () => {
       ).toThrow(new BadRequestError('id in invalid format'));
     });
 
-    it('shoud validate name correctly when create an user', () => {
+    it('should validate name correctly when create an user', () => {
       expect(
         () =>
           new User({
@@ -80,7 +80,7 @@ describe('User unit tests', () => {
       ).toThrow(new BadRequestError('name must be a string'));
     });
 
-    it('shoud validate password correctly when create an user', () => {
+    it('should validate password correctly when create an user', () => {
       expect(
         () =>
           new User({
@@ -100,8 +100,56 @@ describe('User unit tests', () => {
     });
   });
 
+  describe('changePassword', () => {
+    it('should change the password correctly', () => {
+      const user = UserFactory.create({
+        ...data,
+        password: 'inicial password',
+      });
+
+      expect(user.password).toStrictEqual('inicial password');
+
+      user.changePassword('new password');
+      expect(user.password).toStrictEqual('new password');
+      expect(user.toJSON()).toStrictEqual({
+        id,
+        name: 'Name',
+        email: 'email@example.com',
+        password: 'new password',
+      });
+    });
+
+    it('should validate the password when it changes', () => {
+      const user = UserFactory.create({
+        ...data,
+        password: 'inicial password',
+      });
+
+      expect(user.password).toStrictEqual('inicial password');
+
+      expect(() => user.changePassword('new')).toThrow(
+        new BadRequestError('password must contain at least 6 characters'),
+      );
+      expect(() => user.changePassword(10 as any)).toThrow(
+        new BadRequestError('password must be a string'),
+      );
+      expect(() => user.changePassword('')).toThrow(
+        new BadRequestError(`password is required`),
+      );
+      expect(() => user.changePassword(false as any)).toThrow(
+        new BadRequestError(`password is required`),
+      );
+      expect(() => user.changePassword(undefined as any)).toThrow(
+        new BadRequestError(`password is required`),
+      );
+      expect(() => user.changePassword(null as any)).toThrow(
+        new BadRequestError(`password is required`),
+      );
+    });
+  });
+
   describe('UserFactory', () => {
-    it('shoud create an user with factory', () => {
+    it('should create an user with factory', () => {
       const user = UserFactory.create(data);
 
       expect(user.id).toStrictEqual(id);

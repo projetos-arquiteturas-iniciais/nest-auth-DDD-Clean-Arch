@@ -45,6 +45,12 @@ export class User {
     return this._password;
   }
 
+  public changePassword(newPassword: string): void {
+    const validator = new MinLengthFieldValidation('password', 6);
+    validator.validate({ password: newPassword });
+    this._password = newPassword;
+  }
+
   public toJSON(): UserProps {
     return {
       id: this._id,
