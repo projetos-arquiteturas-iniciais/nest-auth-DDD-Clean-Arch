@@ -1,14 +1,15 @@
-import { randomUUID } from 'node:crypto';
-import { User } from '@users/domain/entities';
-import { IHasher } from '@shared/infra/crypto';
-import { DefaultUseCase } from '@shared/application/usecases';
+import { UserFactory } from '@users/domain/entities';
+import { IHasher } from '@shared/domain/crypto';
+import { DefaultUseCase } from '@shared/domain/usecases';
+import { IUserRepository } from '@users/domain/repositories';
+import { StrongPasswordValidation } from '@shared/domain/validations';
+import { ConflictError } from '@shared/domain/errors';
 
 export namespace CreateUserUseCase {
   export type Input = {
     name: string;
     email: string;
     password: string;
-    actionDoneBy: string;
   };
 
   export type Output = {
@@ -19,35 +20,35 @@ export namespace CreateUserUseCase {
 
   export class UseCase implements DefaultUseCase<Input, Output> {
     constructor(
-      private readonly userWritingRepo: User.IWritingRepo,
-      private readonly userReadingRepo: User.IReadingRepo,
+      private readonly userRepository: IUserRepository,
       private readonly hasher: IHasher,
     ) {}
 
-    async execute({
-      name,
-      email,
-      password,
-      actionDoneBy,
-    }: Input): Promise<Output> {
-      const id = randomUUID();
-      const createdUser = await User.create(
-        {
-          id,
-          name,
-          email,
-          password,
-          actionDoneBy,
-        } as User.Interface,
-        this.userWritingRepo,
-        this.userReadingRepo,
-        this.hasher,
-      );
+    public async execute({ name, email, password }: Input): Promise<Output> {
+      const user = UserFactory.create({
+        name,
+        email,
+      });
+
+      const existsRegistrationWithGivenEmail =
+        await this.userRepository.emailExists(user.email);
+      if (existsRegistrationWithGivenEmail) {
+        throw new ConflictError('email already exists');
+      }
+
+      const passwordValidator = new StrongPasswordValidation('password');
+      passwordValidator.validate({ password });
+
+      const hashedPassword = await this.hasher.hash(password);
+      user.changePassword(hashedPassword);
+
+      const savedUser = await this.userRepository.create(user);
+      const userData = savedUser.toJSON();
 
       return {
-        id: createdUser.id,
-        name: createdUser.name,
-        email: createdUser.email,
+        id: userData.id,
+        name: userData.name,
+        email: userData.email,
       };
     }
   }
