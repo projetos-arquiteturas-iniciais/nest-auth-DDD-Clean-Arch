@@ -20,6 +20,7 @@ export class EntityTypeOrm implements IBaseEntityDB {
   @CreateDateColumn({ nullable: true, name: 'created_at' })
   createdAt?: Date;
 
+  @UpdateDateColumn({ nullable: true, name: 'updated_at' })
   @Column({ nullable: true })
   status?: string;
 }
@@ -28,7 +29,6 @@ export class EntityTypeOrmWithAuditColumns
   extends EntityTypeOrm
   implements IBaseEntityDBWithAuditFields
 {
-  @UpdateDateColumn({ nullable: true, name: 'updated_at' })
   updatedAt?: Date;
 
   @Column({ nullable: true, name: 'created_by' })
