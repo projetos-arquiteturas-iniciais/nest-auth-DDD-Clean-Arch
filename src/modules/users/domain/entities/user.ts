@@ -3,7 +3,6 @@ import { Email } from '@shared/domain/velue-objects/email';
 import {
   MaxLengthFieldValidation,
   MinLengthFieldValidation,
-  StrongPasswordValidation,
   UUIDValidation,
   Validation,
   ValidationComposite,
@@ -13,7 +12,7 @@ export type UserProps = {
   id?: string;
   name: string;
   email: string;
-  password: string;
+  password?: string;
 };
 
 export class User {
@@ -26,7 +25,7 @@ export class User {
     this._id = props?.id || randomUUID();
     this._name = props.name;
     this._email = new Email(props.email);
-    this._password = props.password;
+    this._password = props?.password || null;
     this.validation();
   }
 
@@ -69,7 +68,7 @@ function createValidator(): Validation<UserProps> {
     new MinLengthFieldValidation('name', 2),
     new MaxLengthFieldValidation('name', 100),
 
-    new StrongPasswordValidation('password'),
+    new MinLengthFieldValidation('password', 6, false),
   ];
 
   return new ValidationComposite(validations);

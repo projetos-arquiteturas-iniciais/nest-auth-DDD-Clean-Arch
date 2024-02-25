@@ -12,7 +12,7 @@ describe('User unit tests', () => {
   };
 
   it('shoud create an user', () => {
-    const user = new User(data);
+    let user = new User(data);
 
     expect(user.id).toStrictEqual(id);
     expect(user.name).toStrictEqual('Name');
@@ -23,6 +23,15 @@ describe('User unit tests', () => {
       name: 'Name',
       email: 'email@example.com',
       password: 'Test@123',
+    });
+
+    user = new User({ ...data, id: undefined, password: undefined });
+    expect(user.password).toBeNull();
+    expect(user.toJSON()).toStrictEqual({
+      id: user.id,
+      name: 'Name',
+      email: 'email@example.com',
+      password: null,
     });
   });
 
@@ -76,30 +85,18 @@ describe('User unit tests', () => {
         () =>
           new User({
             ...data,
-            password: 'test@123',
+            password: null,
           }),
-      ).toThrow(new BadRequestError(`weak password`));
+      ).not.toThrow();
       expect(
         () =>
           new User({
             ...data,
-            password: 'Test@sd',
+            password: 'test',
           }),
-      ).toThrow(new BadRequestError(`weak password`));
-      expect(
-        () =>
-          new User({
-            ...data,
-            password: 'test123',
-          }),
-      ).toThrow(new BadRequestError(`weak password`));
-      expect(
-        () =>
-          new User({
-            ...data,
-            password: 'Ts@13',
-          }),
-      ).toThrow(new BadRequestError(`weak password`));
+      ).toThrow(
+        new BadRequestError('password must contain at least 6 characters'),
+      );
     });
   });
 
