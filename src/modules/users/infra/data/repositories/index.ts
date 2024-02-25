@@ -1,2 +1,2 @@
-// export * from './';
+export * from './user.repository';
 // export * from './';

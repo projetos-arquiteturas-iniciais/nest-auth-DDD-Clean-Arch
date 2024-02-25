@@ -1,3 +1,3 @@
-export interface ICreate<T = unknown> {
-  create<D>(data: D): Promise<T>;
+export interface ICreate<T = unknown, D = unknown> {
+  create(data: D): Promise<T>;
 }
