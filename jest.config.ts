@@ -28,6 +28,7 @@ export default {
     'jest.config.ts',
     'migration.ts',
     'data-source.ts',
+    'initialize-database-connection.ts',
     'entity-typeorm.ts',
     '.filter.ts',
     '-error.ts',
