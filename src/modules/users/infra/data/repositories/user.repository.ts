@@ -2,7 +2,6 @@ import { UserEntity } from '@users/infra/data/entities/user.entity';
 import { User, UserFactory } from '@users/domain/entities';
 import { IUserRepository } from '@users/domain/repositories';
 import { DataSource, Repository } from 'typeorm';
-import { Email } from '@shared/domain/velue-objects';
 
 export class UserRepository implements IUserRepository {
   public static instance: UserRepository | null = null;
@@ -27,9 +26,9 @@ export class UserRepository implements IUserRepository {
     return UserFactory.create(savedEntity);
   }
 
-  public async emailExists(email: Email): Promise<boolean> {
+  public async emailExists(email: string): Promise<boolean> {
     const user = await this.userRepo.findOne({
-      where: { email: email.value },
+      where: { email: email },
     });
 
     return !!user;
