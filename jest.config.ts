@@ -17,6 +17,7 @@ export default {
     '/node_modules/',
     '/dist/',
     '/coverage/',
+    '/src/shared/infra/database/migrations/',
     '.entity.ts',
     '.interface.ts',
     '.module.ts',

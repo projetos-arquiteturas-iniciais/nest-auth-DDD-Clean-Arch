@@ -3,7 +3,7 @@ import { UserRepository } from './user.repository';
 import { IUserRepository } from '@users/domain/repositories';
 import { Repository } from 'typeorm';
 import { UserEntity } from '../entities';
-import { User, UserFactory } from '@users/domain/entities';
+import { UserFactory } from '@users/domain/entities';
 import { randomUUID } from 'node:crypto';
 
 describe('UserRepository integration tests', () => {
@@ -41,7 +41,6 @@ describe('UserRepository integration tests', () => {
     it(`should create an user`, async () => {
       const result = await sut.create(input);
 
-      expect(result).toBeInstanceOf(User);
       expect(result.id).toStrictEqual(id);
       expect(result.name).toStrictEqual('Name');
       expect(result.email).toStrictEqual('email@example.com');

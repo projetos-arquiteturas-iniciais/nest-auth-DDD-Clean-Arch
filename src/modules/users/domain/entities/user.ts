@@ -15,17 +15,26 @@ export type UserProps = {
   password?: string;
 };
 
-export class User {
+export interface IUser {
+  get id(): string;
+  get name(): string;
+  get email(): string;
+  get password(): string;
+  toJSON(): UserProps;
+  changePassword(email: string): void;
+}
+
+class User implements IUser {
   private _id: string;
   private _name: string;
   private _email: Email;
   private _password: string;
 
-  constructor(props: UserProps) {
-    this._id = props?.id || randomUUID();
-    this._name = props.name;
-    this._email = new Email(props.email);
-    this._password = props?.password || null;
+  constructor(id: string, name: string, email: Email, password: string) {
+    this._id = id || randomUUID();
+    this._name = name;
+    this._email = email;
+    this._password = password || null;
     this.validation();
   }
 
@@ -81,7 +90,9 @@ function createValidator(): Validation<UserProps> {
 }
 
 export class UserFactory {
-  public static create(props: UserProps): User {
-    return new User(props);
+  public static create(props: UserProps): IUser {
+    const email = new Email(props.email);
+
+    return new User(props.id, props.name, email, props.password);
   }
 }

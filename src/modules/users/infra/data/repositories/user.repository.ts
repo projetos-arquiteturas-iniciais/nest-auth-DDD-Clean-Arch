@@ -1,5 +1,5 @@
 import { UserEntity } from '@users/infra/data/entities/user.entity';
-import { User, UserFactory } from '@users/domain/entities';
+import { IUser, UserFactory } from '@users/domain/entities';
 import { IUserRepository } from '@users/domain/repositories';
 import { DataSource, Repository } from 'typeorm';
 
@@ -19,7 +19,7 @@ export class UserRepository implements IUserRepository {
     return this.instance;
   }
 
-  public async create(data: User): Promise<User> {
+  public async create(data: IUser): Promise<IUser> {
     const createdEntity = this.userRepo.create(data.toJSON());
     const savedEntity = await this.userRepo.save(createdEntity);
 
