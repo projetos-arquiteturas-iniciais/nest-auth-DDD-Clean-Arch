@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import { Email } from '@shared/domain/velue-objects/email/email';
+import { Email } from '@shared/domain/velue-objects';
 import {
   MaxLengthFieldValidation,
   MinLengthFieldValidation,
