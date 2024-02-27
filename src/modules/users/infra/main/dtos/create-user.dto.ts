@@ -1,6 +1,6 @@
-import { CreateUserUseCase } from '@users/application/usecases';
+import { CreateUser } from '@users/application/usecases';
 
-export class CreateUserDTO implements CreateUserUseCase.Input {
+export class CreateUserDTO implements CreateUser.Input {
   name: string;
   email: string;
   password: string;

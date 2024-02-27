@@ -5,7 +5,7 @@ import { IUserRepository } from '@users/domain/repositories';
 import { StrongPasswordValidation } from '@shared/domain/validations';
 import { ConflictError } from '@shared/domain/errors';
 
-export namespace CreateUserUseCase {
+export namespace CreateUser {
   export type Input = {
     name: string;
     email: string;

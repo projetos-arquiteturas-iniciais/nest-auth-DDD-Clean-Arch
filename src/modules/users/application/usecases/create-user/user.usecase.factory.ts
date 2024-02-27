@@ -1,5 +1,5 @@
 import { DefaultUseCase } from '@shared/domain/usecases';
-import { CreateUserUseCase } from '@users/application/usecases';
+import { CreateUser } from '@users/application/usecases';
 import { IHasher } from '@shared/domain/crypto';
 import { IUserRepository } from '@users/domain/repositories';
 import { userRepositoryFactory } from '@users/infra/data/repositories';
@@ -10,6 +10,6 @@ export class UserUseCasesFactory {
     const repo: IUserRepository = userRepositoryFactory();
     const hasher: IHasher = hasherFactory();
 
-    return new CreateUserUseCase.UseCase(repo, hasher);
+    return new CreateUser.UseCase(repo, hasher);
   }
 }

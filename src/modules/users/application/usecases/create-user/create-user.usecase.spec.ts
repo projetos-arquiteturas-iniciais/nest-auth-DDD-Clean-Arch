@@ -1,23 +1,23 @@
 import { IHasher } from '@shared/domain/crypto';
 import { ConflictError } from '@shared/domain/errors';
-import { CreateUserUseCase } from '@users/application/usecases';
+import { CreateUser } from '@users/application/usecases';
 import { UserFactory } from '@users/domain/entities';
 import { IUserRepository } from '@users/domain/repositories';
 
 describe('CreateUserUseCase unit tests', () => {
-  const mockedInput: CreateUserUseCase.Input = {
+  const mockedInput: CreateUser.Input = {
     name: 'test',
     email: 'test@example.com',
     password: 'Test@123',
   };
   const input = UserFactory.create(mockedInput);
-  const mockedOutput: CreateUserUseCase.Output = {
+  const mockedOutput: CreateUser.Output = {
     id: input.id,
     name: mockedInput.name,
     email: mockedInput.email,
   };
 
-  let sut: CreateUserUseCase.UseCase;
+  let sut: CreateUser.UseCase;
   let mockedUserRepo: IUserRepository;
   let mockedHasher: IHasher;
 
@@ -29,7 +29,7 @@ describe('CreateUserUseCase unit tests', () => {
     mockedHasher = {
       hash: jest.fn().mockResolvedValue('hashed value'),
     } as any as IHasher;
-    sut = new CreateUserUseCase.UseCase(mockedUserRepo, mockedHasher);
+    sut = new CreateUser.UseCase(mockedUserRepo, mockedHasher);
   });
 
   it('should create an user', async () => {
