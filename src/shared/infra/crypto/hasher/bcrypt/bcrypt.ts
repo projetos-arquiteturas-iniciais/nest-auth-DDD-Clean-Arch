@@ -10,7 +10,3 @@ export class BcryptAdapter implements IHasher {
     return compare(data, encrypted);
   }
 }
-
-export const bcryptFactory = (): IHasher => {
-  return new BcryptAdapter();
-};

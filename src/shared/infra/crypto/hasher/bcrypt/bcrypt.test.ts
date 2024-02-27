@@ -1,4 +1,4 @@
-import { bcryptFactory } from '@shared/infra/crypto/hasher';
+import { BcryptAdapter } from '@shared/infra/crypto/hasher';
 import { IHasher } from '@shared/domain/crypto';
 
 describe('Bcrypt integration tests', () => {
@@ -6,7 +6,7 @@ describe('Bcrypt integration tests', () => {
   const dataToHash = 'hash test';
 
   beforeEach(() => {
-    sut = bcryptFactory();
+    sut = new BcryptAdapter();
   });
 
   it('should create a hash', async () => {
