@@ -1,5 +1,5 @@
-import { BadRequestError } from '../errors';
-import { Validator } from '../validations';
+import { BadRequestError } from '../../errors';
+import { Validator } from '../../validations';
 
 export class Email {
   constructor(private readonly email: string) {
