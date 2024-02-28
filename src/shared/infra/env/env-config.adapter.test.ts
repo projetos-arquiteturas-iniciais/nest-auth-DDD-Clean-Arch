@@ -49,4 +49,10 @@ describe('EnvConfig integration tests', () => {
 
     expect(result).toStrictEqual('tests');
   });
+
+  it('should return the enviroment SECRET_TOKEN', async () => {
+    const result = sut.getSecretKeyToken();
+
+    expect(result).toStrictEqual('test secret key');
+  });
 });

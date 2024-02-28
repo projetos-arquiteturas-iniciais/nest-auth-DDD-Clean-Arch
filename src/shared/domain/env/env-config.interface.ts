@@ -6,4 +6,5 @@ export interface IEnvConfig {
   getDbUserName(): string;
   getDbPassword(): string;
   getDbName(): string;
+  getSecretKeyToken(): string;
 }

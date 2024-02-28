@@ -4,31 +4,35 @@ import { config } from 'dotenv';
 config();
 
 export class EnvConfig implements IEnvConfig {
-  getAppPort(): number {
+  public getAppPort(): number {
     return Number(process?.env?.PORT);
   }
 
-  getNodeEnv(): string {
+  public getNodeEnv(): string {
     return process?.env?.NODE_ENV?.toString();
   }
 
-  getDbHost(): string {
+  public getDbHost(): string {
     return process.env.DATABASE_HOST.toString();
   }
 
-  getDBPort(): number {
+  public getDBPort(): number {
     return Number(process.env.DATABASE_PORT);
   }
 
-  getDbUserName(): string {
+  public getDbUserName(): string {
     return process.env.DATABASE_USER_NAME.toString();
   }
 
-  getDbPassword(): string {
+  public getDbPassword(): string {
     return process.env.DATABASE_PASSWORD.toString();
   }
 
-  getDbName(): string {
+  public getDbName(): string {
     return process.env.DATABASE_NAME.toString();
+  }
+
+  public getSecretKeyToken(): string {
+    return process.env.SECRET_TOKEN.toString();
   }
 }
