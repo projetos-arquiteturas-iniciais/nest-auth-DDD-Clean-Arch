@@ -1,33 +1,34 @@
 import { UnauthorizedError } from '@shared/domain/errors';
 import { JsonWebTokenAdapter } from './jesonwebtoken.adapter';
+import { JwtFactory } from '@shared/infra/jwt';
 
 describe('JsonWebTokenAdapter integration tests', () => {
   const secretKey = 'mySecretKey';
-  const jwtAdapter = new JsonWebTokenAdapter(secretKey);
+  const sut = JwtFactory.createWithGivenSecretKey(secretKey);
 
   it('should create and decode a JWT token correctly', () => {
     const payload = { userId: 12345 };
-    const token = jwtAdapter.sign(payload, { expiresIn: '1h' });
-    const decodedPayload = jwtAdapter.decode(token);
+    const token = sut.sign(payload, { expiresIn: '1h' });
+    const decodedPayload = sut.decode(token);
 
-    expect(decodedPayload.userId).toEqual(12345);
-    expect(decodedPayload.exp).toBeDefined();
-    expect(decodedPayload.iat).toBeDefined();
+    expect(decodedPayload['userId']).toEqual(12345);
+    expect(decodedPayload['exp']).toBeDefined();
+    expect(decodedPayload['iat']).toBeDefined();
   });
 
   it('should throw an UnauthorizedError if the JWT token is expired', async () => {
     const payload = { userId: 12345 };
 
-    const token = jwtAdapter.sign(payload, { expiresIn: '1s' });
+    const token = sut.sign(payload, { expiresIn: '1s' });
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    expect(() => jwtAdapter.verify<{ userId: number }>(token)).toThrow(
+    expect(() => sut.verify<{ userId: number }>(token)).toThrow(
       new UnauthorizedError('Token JWT expired'),
     );
   });
 
   it('should throw an UnauthorizedError if the JWT token is not valid', async () => {
-    expect(() => jwtAdapter.verify('invalid token')).toThrow(
+    expect(() => sut.verify('invalid token')).toThrow(
       new UnauthorizedError('Action not allowed'),
     );
   });
@@ -38,7 +39,7 @@ describe('JsonWebTokenAdapter integration tests', () => {
     const payload = { userId: 12345 };
     const token = another.sign(payload, { expiresIn: '1h' });
 
-    expect(() => jwtAdapter.verify<{ userId: number }>(token)).toThrow(
+    expect(() => sut.verify<{ userId: number }>(token)).toThrow(
       new UnauthorizedError('Action not allowed'),
     );
   });

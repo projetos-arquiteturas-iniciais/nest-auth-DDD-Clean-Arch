@@ -25,14 +25,14 @@ export class EnvConfig implements IEnvConfig {
   }
 
   public getDbPassword(): string {
-    return process.env.DATABASE_PASSWORD.toString();
+    return process.env.DATABASE_PASSWORD?.toString();
   }
 
   public getDbName(): string {
-    return process.env.DATABASE_NAME.toString();
+    return process.env.DATABASE_NAME?.toString();
   }
 
   public getSecretKeyToken(): string {
-    return process.env.SECRET_TOKEN.toString();
+    return process.env.SECRET_TOKEN?.toString();
   }
 }
