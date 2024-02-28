@@ -3,11 +3,13 @@ import { INestApplication } from '@nestjs/common';
 import {
   BadRequestErrorFilter,
   ConflictErrorFilter,
+  ForbiddenErrorFilter,
   InternalServerErrorFilter,
   InvalidCredentialsErrorFilter,
   InvalidPasswordErrorFilter,
   NotFoundErrorFilter,
   UnprocessableEntityErrorFilter,
+  UnauthorizedErrorFilter,
 } from '@shared/infra/exception-filters';
 
 export const globalExeptionFiltersFactory = (app: INestApplication): void => {
@@ -19,5 +21,8 @@ export const globalExeptionFiltersFactory = (app: INestApplication): void => {
     new InvalidCredentialsErrorFilter(),
     new UnprocessableEntityErrorFilter(),
     new InternalServerErrorFilter(),
+    new InternalServerErrorFilter(),
+    new ForbiddenErrorFilter(),
+    new UnauthorizedErrorFilter(),
   );
 };

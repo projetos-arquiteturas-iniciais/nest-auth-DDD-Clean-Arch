@@ -5,4 +5,6 @@ export * from './invalid-password-error';
 export * from './bad-request-error';
 export * from './unprocessable-entity-error';
 export * from './internal-server-error';
+export * from './forbidden-error';
+export * from './unauthorized-error';
 // export * from './';
