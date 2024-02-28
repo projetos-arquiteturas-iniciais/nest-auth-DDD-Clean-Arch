@@ -21,7 +21,7 @@ export class JsonWebTokenAdapter
   }
 
   public decode(token: string, options?: DecodeOptions): null | JwtPayload {
-    return jwt.decode(token, options);
+    return jwt.decode(token, options) as JwtPayload;
   }
 
   public verify<T extends object = any>(
