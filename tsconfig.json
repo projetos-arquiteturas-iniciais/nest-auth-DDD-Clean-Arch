@@ -14,7 +14,8 @@
     "baseUrl": "./",
     "paths": {
      "@shared/*": ["src/shared/*"],
-     "@users/*": ["src/modules/users/*"]
+     "@users/*": ["src/modules/users/*"],
+     "@auth/*": ["src/modules/auth/*"]
     },
     "incremental": true,
     "skipLibCheck": true,
