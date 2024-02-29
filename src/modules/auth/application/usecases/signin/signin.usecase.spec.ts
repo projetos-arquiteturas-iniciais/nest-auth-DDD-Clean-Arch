@@ -42,7 +42,7 @@ describe('Signin.UseCase unit tests', () => {
     jest.spyOn(mockedUserRepo, 'findByEmail').mockResolvedValueOnce(null);
 
     expect(sut.execute(mockedInput)).rejects.toThrow(
-      new BadRequestError('E-mail or Password is wrong'),
+      new BadRequestError('E-mail and/or Password is wrong'),
     );
   });
 
@@ -50,7 +50,7 @@ describe('Signin.UseCase unit tests', () => {
     jest.spyOn(mockedHasher, 'compare').mockResolvedValueOnce(false);
 
     expect(sut.execute(mockedInput)).rejects.toThrow(
-      new BadRequestError('E-mail or Password is wrong'),
+      new BadRequestError('E-mail and/or Password is wrong'),
     );
   });
 

@@ -44,7 +44,7 @@ export namespace Signin {
         }
       }
 
-      throw new BadRequestError('E-mail or Password is wrong');
+      throw new BadRequestError('E-mail and/or Password is wrong');
     }
   }
 }
