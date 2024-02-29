@@ -10,7 +10,12 @@ export class UserRepository
 {
   public static instance: UserRepository | null = null;
   public userRepo: Repository<UserEntity>;
-  protected allowedFields: (keyof UserProps)[] = ['id', 'name', 'email'];
+  protected allowedFields: (keyof UserProps)[] = [
+    'id',
+    'name',
+    'email',
+    'password',
+  ];
 
   private constructor(protected readonly dataSource: DataSource) {
     super();
