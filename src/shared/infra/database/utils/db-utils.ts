@@ -11,7 +11,7 @@ export abstract class DatabaseUtils<T> {
       select[field] = true;
     });
 
-    return selectFields.length > 0 ? select : null;
+    return fields.length > 0 ? select : null;
   };
 
   protected createQueryBuilderSelectByFields = (
@@ -25,7 +25,7 @@ export abstract class DatabaseUtils<T> {
       select.push(`${entityName}.${field as string}`);
     });
 
-    return selectFields.length > 0 ? select : null;
+    return fields.length > 0 ? select : null;
   };
 
   private removeNotAllowedFields(selectFields: (keyof T)[]): (keyof T)[] {
