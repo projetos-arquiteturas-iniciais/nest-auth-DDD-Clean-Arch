@@ -1,7 +1,15 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 
-import { UserUseCasesFactory } from '@users/application/usecases';
 import { CreateUserDTO } from '@auth/infra/main/dtos';
+import { LocalAuthGuard } from '@auth/infra/main/guards';
+import { UserUseCasesFactory } from '@users/application/usecases';
 
 @Controller('auth')
 export class AuthController {
@@ -12,4 +20,9 @@ export class AuthController {
 
     return usecase.execute(body);
   }
+
+  @Post('login')
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(LocalAuthGuard)
+  public async login() {}
 }
