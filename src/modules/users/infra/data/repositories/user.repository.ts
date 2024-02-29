@@ -1,13 +1,19 @@
 import { UserEntity } from '@users/infra/data/entities/user.entity';
-import { IUser, UserFactory } from '@users/domain/entities';
+import { IUser, UserFactory, UserProps } from '@users/domain/entities';
 import { IUserRepository } from '@users/domain/repositories';
 import { DataSource, Repository } from 'typeorm';
+import { DatabaseUtils } from '@shared/infra/database';
 
-export class UserRepository implements IUserRepository {
+export class UserRepository
+  extends DatabaseUtils<UserProps>
+  implements IUserRepository
+{
   public static instance: UserRepository | null = null;
   public userRepo: Repository<UserEntity>;
+  protected allowedFields: (keyof UserProps)[] = ['id', 'name', 'email'];
 
   private constructor(protected readonly dataSource: DataSource) {
+    super();
     this.userRepo = dataSource.getRepository(UserEntity);
   }
 
@@ -33,4 +39,17 @@ export class UserRepository implements IUserRepository {
 
     return !!user;
   }
+
+  public findByEmail(
+    email: string,
+    fields: (keyof UserProps)[] = [],
+  ): Promise<UserProps | Partial<UserProps>> {
+    const select = this.createSelectByFields(fields);
+
+    return this.userRepo.findOne({
+      select,
+      where: { email: email.toLowerCase() },
+    });
+  }
 }
+0;

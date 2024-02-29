@@ -3,7 +3,7 @@ import { Validator } from '../../validations';
 
 export class Email {
   constructor(private readonly email: string) {
-    this.email = email;
+    this.email = email.toLowerCase();
     this.validation();
   }
 
