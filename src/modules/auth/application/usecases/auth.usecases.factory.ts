@@ -5,7 +5,7 @@ import { IHasher } from '@shared/domain/crypto';
 import { userRepositoryFactory } from '@users/infra/data/repositories';
 import { hasherFactory } from '@shared/infra/crypto/hasher';
 
-export class AuthUsecasesFactory {
+export class AuthUseCasesFactory {
   public static signin(): DefaultUseCase {
     const repo: IUserRepository = userRepositoryFactory();
     const hasher: IHasher = hasherFactory();
