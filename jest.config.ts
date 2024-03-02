@@ -33,6 +33,8 @@ export default {
     'initialize-database-connection.ts',
     'entity-typeorm.ts',
     '.filter.ts',
+    '.guard.ts',
+    '.strategy.ts',
     '-error.ts',
     '.+/infra/main/.*\\.controller\\.ts$',
   ],
