@@ -6,10 +6,10 @@ import { userRepositoryFactory } from '@users/infra/data/repositories';
 import { hasherFactory } from '@shared/infra/crypto/hasher';
 
 export class UserUseCasesFactory {
-  public static createUser(): DefaultUseCase {
-    const repo: IUserRepository = userRepositoryFactory();
-    const hasher: IHasher = hasherFactory();
+  public static readonly repo: IUserRepository = userRepositoryFactory();
+  public static readonly hasher: IHasher = hasherFactory();
 
-    return new CreateUser.UseCase(repo, hasher);
+  public static createUser(): DefaultUseCase {
+    return new CreateUser.UseCase(this.repo, this.hasher);
   }
 }

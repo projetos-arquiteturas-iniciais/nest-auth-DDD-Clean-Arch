@@ -7,9 +7,9 @@ import { hasherFactory } from '@shared/infra/crypto/hasher';
 import { IJsonWebToken, JwtFactory } from '@shared/infra/jwt';
 
 export class AuthUseCasesFactory {
-  public static repo: IUserRepository = userRepositoryFactory();
-  public static hasher: IHasher = hasherFactory();
-  public static jsonWebToken: IJsonWebToken = JwtFactory.create();
+  public static readonly repo: IUserRepository = userRepositoryFactory();
+  public static readonly hasher: IHasher = hasherFactory();
+  public static readonly jsonWebToken: IJsonWebToken = JwtFactory.create();
 
   public static signin(): DefaultUseCase {
     return new Signin.UseCase(this.repo, this.hasher);
