@@ -14,6 +14,7 @@ export class UserRepository
     'id',
     'name',
     'email',
+    'isAdmin',
     'password',
   ];
 

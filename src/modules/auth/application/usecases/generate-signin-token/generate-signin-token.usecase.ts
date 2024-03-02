@@ -7,6 +7,7 @@ export namespace GenerateSigninToken {
     sub: string;
     email: string;
     name: string;
+    isAdmin: boolean;
     iat?: number;
     exp?: number;
   };
@@ -24,6 +25,7 @@ export namespace GenerateSigninToken {
       const payload: UserPayload = {
         sub: input['id'],
         name: input['name'],
+        isAdmin: input['isAdmin'],
         email: input['email'],
       };
       const jwtToken = this.JWTProvider.sign(payload, { expiresIn: '1d' });

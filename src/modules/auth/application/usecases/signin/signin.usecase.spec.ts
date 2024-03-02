@@ -13,6 +13,7 @@ describe('Signin.UseCase unit tests', () => {
   const mockedOutput: Signin.Output = {
     id,
     name: 'Name',
+    isAdmin: false,
     email: mockedInput.email,
   };
 

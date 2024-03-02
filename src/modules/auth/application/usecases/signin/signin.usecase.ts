@@ -12,6 +12,7 @@ export namespace Signin {
   export type Output = {
     id: string;
     name: string;
+    isAdmin: boolean;
     email: string;
   };
 
@@ -26,6 +27,7 @@ export namespace Signin {
         'id',
         'name',
         'email',
+        'isAdmin',
         'password',
       ]);
 
@@ -39,6 +41,7 @@ export namespace Signin {
           return {
             id: user['id'],
             name: user['name'],
+            isAdmin: user['isAdmin'],
             email: user['email'],
           };
         }

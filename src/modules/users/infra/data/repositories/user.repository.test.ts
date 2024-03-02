@@ -48,6 +48,7 @@ describe('UserRepository integration tests', () => {
       expect(result.id).toStrictEqual(id);
       expect(result.name).toStrictEqual('Name');
       expect(result.email).toStrictEqual('email@example.com');
+      expect(result.isAdmin).toStrictEqual(false);
       expect(result.password).toStrictEqual('Test@123');
     });
   });

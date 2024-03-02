@@ -21,6 +21,7 @@ export interface IUser {
   get name(): string;
   get email(): string;
   get password(): string;
+  get isAdmin(): boolean;
   toJSON(): UserProps;
   changePassword(email: string): void;
 }
