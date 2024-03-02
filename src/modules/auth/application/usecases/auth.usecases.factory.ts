@@ -7,16 +7,15 @@ import { hasherFactory } from '@shared/infra/crypto/hasher';
 import { IJsonWebToken, JwtFactory } from '@shared/infra/jwt';
 
 export class AuthUseCasesFactory {
-  public static signin(): DefaultUseCase {
-    const repo: IUserRepository = userRepositoryFactory();
-    const hasher: IHasher = hasherFactory();
+  public static repo: IUserRepository = userRepositoryFactory();
+  public static hasher: IHasher = hasherFactory();
+  public static jsonWebToken: IJsonWebToken = JwtFactory.create();
 
-    return new Signin.UseCase(repo, hasher);
+  public static signin(): DefaultUseCase {
+    return new Signin.UseCase(this.repo, this.hasher);
   }
 
   public static generateSigninToken(): DefaultUseCase {
-    const jsonWebToken: IJsonWebToken = JwtFactory.create();
-
-    return new GenerateSigninToken.UseCase(jsonWebToken);
+    return new GenerateSigninToken.UseCase(this.jsonWebToken);
   }
 }
