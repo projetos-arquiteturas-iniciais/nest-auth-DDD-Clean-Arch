@@ -4,12 +4,15 @@ import {
   HttpCode,
   HttpStatus,
   Post,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 
-import { CreateUserDTO } from '@auth/infra/main/dtos';
+import { IsPublic } from '@shared/infra/decorators';
 import { LocalAuthGuard } from '@auth/infra/main/guards';
+import { AuthRequest, CreateUserDTO } from '@auth/infra/main/dtos';
 import { UserUseCasesFactory } from '@users/application/usecases';
+import { AuthUseCasesFactory } from '@auth/application/usecases';
 
 @Controller('auth')
 export class AuthController {
@@ -24,5 +27,10 @@ export class AuthController {
   @Post('login')
   @HttpCode(HttpStatus.OK)
   @UseGuards(LocalAuthGuard)
-  public async login() {}
+  @IsPublic()
+  public async login(@Req() req: AuthRequest) {
+    const usecase = AuthUseCasesFactory.generateSigninToken();
+
+    return usecase.execute(req.user);
+  }
 }

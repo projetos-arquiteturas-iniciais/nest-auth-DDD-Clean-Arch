@@ -35,6 +35,7 @@ export default {
     '.filter.ts',
     '.guard.ts',
     '.strategy.ts',
+    '.decorator.ts',
     '-error.ts',
     '.+/infra/main/.*\\.controller\\.ts$',
   ],
