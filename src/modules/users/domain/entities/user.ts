@@ -30,13 +30,20 @@ class User implements IUser {
   private _name: string;
   private _email: Email;
   private _password: string;
-  private _isAdmin: boolean = false;
+  private _isAdmin: boolean;
 
-  constructor(id: string, name: string, email: Email, password: string) {
+  constructor(
+    id: string,
+    name: string,
+    email: Email,
+    password: string,
+    isAdmin: boolean,
+  ) {
     this._id = id || randomUUID();
     this._name = name;
     this._email = email;
     this._password = password || null;
+    this._isAdmin = isAdmin || false;
     this.validation();
   }
 
@@ -99,6 +106,6 @@ export class UserFactory {
   public static create(props: UserProps): IUser {
     const email = new Email(props.email);
 
-    return new User(props.id, props.name, email, props.password);
+    return new User(props.id, props.name, email, props.password, props.isAdmin);
   }
 }

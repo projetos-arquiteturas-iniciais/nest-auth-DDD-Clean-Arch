@@ -12,4 +12,7 @@ export class UserEntity extends EntityTypeOrm implements UserProps {
 
   @Column({ nullable: false })
   password: string;
+
+  @Column({ nullable: false, default: false })
+  isAdmin: boolean;
 }
