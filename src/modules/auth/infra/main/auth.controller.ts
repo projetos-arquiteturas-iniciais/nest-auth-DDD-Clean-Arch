@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 
 import { IsPublic } from '@shared/infra/decorators';
-import { LocalAuthGuard } from '@auth/infra/main/guards';
+import { LocalAuthGuard, OnlyAdminGuard } from '@auth/infra/main/guards';
 import { AuthRequest, CreateUserDTO } from '@auth/infra/main/dtos';
 import { UserUseCasesFactory } from '@users/application/usecases';
 import { AuthUseCasesFactory } from '@auth/application/usecases';
@@ -18,6 +18,7 @@ import { AuthUseCasesFactory } from '@auth/application/usecases';
 export class AuthController {
   @Post('sign-up')
   @HttpCode(HttpStatus.CREATED)
+  @UseGuards(OnlyAdminGuard)
   public signup(@Body() body: CreateUserDTO) {
     const usecase = UserUseCasesFactory.createUser();
 
