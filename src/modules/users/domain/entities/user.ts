@@ -12,6 +12,7 @@ export type UserProps = {
   id?: string;
   name: string;
   email: string;
+  isAdmin?: boolean;
   password?: string;
 };
 
@@ -29,6 +30,7 @@ class User implements IUser {
   private _name: string;
   private _email: Email;
   private _password: string;
+  private _isAdmin: boolean = false;
 
   constructor(id: string, name: string, email: Email, password: string) {
     this._id = id || randomUUID();
@@ -50,6 +52,9 @@ class User implements IUser {
     return this._email.value;
   }
 
+  get isAdmin(): boolean {
+    return this._isAdmin;
+  }
   get password(): string {
     return this._password;
   }
@@ -65,6 +70,7 @@ class User implements IUser {
       id: this._id,
       name: this._name,
       email: this._email.value,
+      isAdmin: this._isAdmin,
       password: this._password,
     };
   }

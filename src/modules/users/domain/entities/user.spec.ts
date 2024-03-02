@@ -8,6 +8,7 @@ describe('User unit tests', () => {
     id,
     name: 'Name',
     email: 'email@example.com',
+    isAdmin: false,
     password: 'Test@123',
   };
 
@@ -22,6 +23,7 @@ describe('User unit tests', () => {
       id,
       name: 'Name',
       email: 'email@example.com',
+      isAdmin: false,
       password: 'Test@123',
     });
 
@@ -31,6 +33,7 @@ describe('User unit tests', () => {
       id: user.id,
       name: 'Name',
       email: 'email@example.com',
+      isAdmin: false,
       password: null,
     });
   });
@@ -108,6 +111,7 @@ describe('User unit tests', () => {
         id,
         name: 'Name',
         email: 'email@example.com',
+        isAdmin: false,
         password: 'new password',
       });
     });
@@ -153,6 +157,7 @@ describe('User unit tests', () => {
         id,
         name: 'Name',
         email: 'email@example.com',
+        isAdmin: false,
         password: 'Test@123',
       });
     });
