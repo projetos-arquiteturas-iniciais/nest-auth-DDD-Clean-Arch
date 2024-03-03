@@ -1,4 +1,20 @@
 services:
+  api:
+    container_name: api-node
+    image: node:20-alpine3.18
+    working_dir: /usr/src/app
+    restart: always
+    command: sh -c "apk --no-cache add curl && npm install && npm install -G dotenv-cli@7.3.0 && npm start || tail -f /dev/null"
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - 3001:3001
+    stdin_open: true
+    tty: true
+    depends_on:
+      - db
+
   db:
     container_name: postgres-container
     image: postgres:15
